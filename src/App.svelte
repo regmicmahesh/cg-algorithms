@@ -4,12 +4,16 @@
   let canvas: HTMLCanvasElement;
   let context: CanvasRenderingContext2D;
   let x1: number, x2: number, y1: number, y2: number;
+  let speed: number = 1;
 
   let dx = 0;
   let dy = 0;
   let steps = 0;
   let xinc = 0;
   let yinc = 0;
+
+  let currX = 0;
+  let currY = 0;
 
   let cWidth = 800;
   let cHeight = 600;
@@ -39,12 +43,14 @@
     for (let v = 0; v < steps; v++) {
       x = x + xinc;
       y = y + yinc;
-      setTimeout(putPixel.bind(undefined, x, y), (v + 1) * 50);
+      setTimeout(putPixel.bind(undefined, x, y), ((v + 1) * 50) / speed);
     }
   };
   const putPixel = (x: number, y: number) => {
+    currX = x;
+    currY = y;
     console.log(x, y);
-    context.fillRect(x, y, 1, 1);
+    context.fillRect(x, cHeight - y, 1, 1);
   };
 </script>
 
@@ -53,7 +59,8 @@
   <div>
     <h1>DDA Visualizer</h1>
     Resolution: {cHeight}x{cWidth}
-
+    <input type="number" bind:value={cWidth} />
+    <input type="number" bind:value={cHeight} />
     <hr />
     Point One:
     <input type="number" bind:value={x1} />
@@ -70,6 +77,17 @@
     <h3>dx: {dx}</h3>
     <h3>dy: {dy}</h3>
     <h3>Steps: {steps}</h3>
+    <h3>Current X: {currX}</h3>
+    <h3>Current Y: {currY}</h3>
+    <h3>
+      Speed <input
+        bind:value={speed}
+        type="range"
+        min="0.5"
+        max="5"
+        step="0.5"
+      />
+    </h3>
   </div>
 </main>
 
@@ -81,6 +99,8 @@
   }
   canvas {
     border: 2px solid black;
+    width: 50%;
+    height: 100%;
   }
   main {
     display: flex;

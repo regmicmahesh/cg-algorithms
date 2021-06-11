@@ -125,7 +125,6 @@
         padding: 0;
         box-sizing: border-box;
       }
-
       main {
         display: grid;
         height: 90vh;
@@ -150,6 +149,7 @@
         align-items: center;
         height: 4em;
       }
+      /* nav-bar buttons */
       .nav-bar a {
         text-decoration: none;
         margin: 0 10px;
@@ -170,6 +170,7 @@
         transform: translateY(4px);
       }
 
+      /* styles for canvas */
       canvas {
        border: 2px solid white;
        background: teal;
@@ -178,6 +179,7 @@
        grid-area: canvas;
       }
 
+      /* text-area */
       .visualizer {
         grid-area: visualizer;
         text-align: center;
